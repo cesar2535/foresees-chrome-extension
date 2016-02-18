@@ -1,0 +1,22 @@
+.root {
+  composes: main from './App.css'
+}
+
+.error {
+  composes: root;
+  background-color: #f00;
+  color: #fff;
+  height: 100%;
+  padding: 5px 20px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.link > img {
+  height: 100%;
+  margin: 5px 10px;
+}

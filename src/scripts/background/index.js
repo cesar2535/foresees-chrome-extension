@@ -37,11 +37,10 @@ chrome.runtime.onMessage.addListener(function (req, sender, sendResponse) {
       throw new Error('Expect the provider is a string')
     }
 
-    Asteroid.loginWith('facebook').then(asteroid => {
-      console.log(asteroid)
+    Asteroid.loginWith('facebook').then(userId => {
       const state = {
         persistent: {
-          userId: asteroid.userId
+          userId: userId
         }
       }
       store.dispatch({

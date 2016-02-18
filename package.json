@@ -63,7 +63,6 @@
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.2",
     "redbox-react": "^1.2.2",
-    "redux-logger": "^2.5.2",
     "rimraf": "^2.5.2",
     "rucksack-css": "^0.8.5",
     "style-loader": "^0.13.0",

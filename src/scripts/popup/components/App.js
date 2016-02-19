@@ -70,7 +70,7 @@ export default class App extends Component {
           <MenuItem onClick={ e => this.changeLocation(e, 'HOME') }>Home</MenuItem>
           <MenuItem>Scratch</MenuItem>
           <MenuItem>CS First</MenuItem>
-          <MenuItem onClick={ e => this.changeLocation(e, 'SCRATCH_PLAYER') } disabled={!checkProjectUrl(currentWeb.url)}>Scratch Player</MenuItem>
+          <MenuItem onClick={ e => checkProjectUrl(currentWeb.url) ? this.changeLocation(e, 'SCRATCH_PLAYER') : null } disabled={!checkProjectUrl(currentWeb.url)}>Scratch Player</MenuItem>
           <MenuItem>About</MenuItem>
         </LeftNav>
         {this.renderContent()}

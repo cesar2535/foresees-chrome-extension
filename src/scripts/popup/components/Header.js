@@ -8,11 +8,14 @@ import IconMenu from 'material-ui/lib/menus/icon-menu'
 import styles from './Header.css'
 
 export default class Header extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
     this.state = {
       isMoreOpen: 'false'
     }
+
+    this.asteroid = context.asteroid
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this)
   }
 
   render() {
@@ -23,9 +26,11 @@ export default class Header extends Component {
         onLeftIconButtonTouchTap={this.props.toggleDrawer}
         iconElementRight={
           <div>
-            <IconButton tooltip="Add to Favorite">
-              <FontIcon className="material-icons" color="#fff">favorite_border</FontIcon>
-            </IconButton>
+            { persistent.userId ?
+              <IconButton tooltip="Add to Favorite" onClick={this.handleFavoriteClick}>
+                <FontIcon className="material-icons" color="#fff">favorite_border</FontIcon>
+              </IconButton> : null
+            }
             <IconMenu
               iconButtonElement={
                 <IconButton><MoreVertIcon color="#fff" /></IconButton>
@@ -42,4 +47,18 @@ export default class Header extends Component {
       />
     )
   }
+
+  handleFavoriteClick(e) {
+    const { persistent: { userId } } = this.props
+    this.asteroid.call('favoriteLists.project.add', {
+      name: 'Favorite',
+      userId,
+      scratchId: '15832807'
+    })
+  }
+
+}
+
+Header.contextTypes = {
+  asteroid: PropTypes.object
 }

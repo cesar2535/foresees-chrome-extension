@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import styles from './App.css'
 import LeftNav from 'material-ui/lib/left-nav'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import RaisedButton from 'material-ui/lib/raised-button'
-import { createAsteroid } from '../../shared/helpers/createMeteorConnect'
+import { Asteroid, createAsteroid } from '../../shared/helpers/createMeteorConnect'
 import { getCurrentTab } from '../../shared/helpers/getTab'
 import { checkProjectUrl } from '../../shared/helpers/regexTest'
 import { login } from '../../shared/helpers/account'
@@ -21,9 +21,15 @@ export default class App extends Component {
       currentWeb: {}
     }
     this.toggleDrawer = this.toggleDrawer.bind(this)
-    this.getCurrentTab = this.getCurrentTab.bind(this)
+    // this.getCurrentTab = this.getCurrentTab.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+  }
+
+  getChildContext() {
+    return {
+      asteroid: this.asteroid
+    }
   }
 
   componentWillMount() {
@@ -47,7 +53,7 @@ export default class App extends Component {
         console.log('UPDATE PROFILE', fields.profile)
         updateProfile(fields.profile)
       }
-    });
+    })
   }
 
   render() {
@@ -144,4 +150,8 @@ export default class App extends Component {
   handleLogout(e) {
     this.props.logout()
   }
+}
+
+App.childContextTypes = {
+  asteroid: PropTypes.instanceOf(Asteroid)
 }

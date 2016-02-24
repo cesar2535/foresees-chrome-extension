@@ -1,12 +1,20 @@
-import { UPDATE_PROFILE } from '../actions/profile'
+import { UPDATE_PROFILE, UPDATE_FAVORITE } from '../actions/profile'
 import { LOGOUT } from '../actions'
 
-const initialState = {}
+const initialState = {
+  favorites: []
+}
 
 export default function profile(state = initialState, action) {
   switch (action.type) {
     case UPDATE_PROFILE:
       return { ...state, ...action.profile }
+    case UPDATE_FAVORITE:
+      console.log(state, action)
+      return {
+        ...state,
+        favorites: action.favorites
+      }
     case LOGOUT:
       return {}
     default:

@@ -41,7 +41,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    const { state: { persistent }, updateProfile } = this.props
+    const { state: { persistent }, updateProfile, updateFavorite } = this.props
     this.getCurrentTab()
     this.asteroid.ddp.on("added", ({collection, id, fields}) => {
       console.groupCollapsed(`Collection ${collection} with a element added`)
@@ -50,8 +50,11 @@ export default class App extends Component {
       console.groupEnd()
 
       if (collection === 'users' && id === persistent.userId) {
-        console.log('UPDATE PROFILE', fields.profile)
         updateProfile(fields.profile)
+
+      }
+      if (collection === 'favoriteLists' && fields.userId === persistent.userId) {
+        updateFavorite(fields.scratchProjects)
       }
     })
   }
@@ -62,9 +65,10 @@ export default class App extends Component {
     return (
       <div className={styles.root}>
         <Header
+          persistent={persistent}
+          profile={profile}
           toggleDrawer={this.toggleDrawer}
           getCurrentTab={this.getCurrentTab}
-          persistent={persistent}
           handleLogout={this.handleLogout}
         />
         <LeftNav

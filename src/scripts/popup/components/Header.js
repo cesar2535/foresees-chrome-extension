@@ -18,8 +18,15 @@ export default class Header extends Component {
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this)
   }
 
+  componentDidMount() {
+    console.log(this.asteroid)
+    this.asteroid.ddp.on('changed', function (changed) {
+      console.log('Header:', changed)
+    })
+  }
+
   render() {
-    const { persistent } = this.props
+    const { persistent, profile: { favorites } } = this.props
     return (
       <AppBar
         title="4Cs"
@@ -28,7 +35,7 @@ export default class Header extends Component {
           <div>
             { persistent.userId ?
               <IconButton tooltip="Add to Favorite" onClick={this.handleFavoriteClick}>
-                <FontIcon className="material-icons" color="#fff">favorite_border</FontIcon>
+                <FontIcon className="material-icons" color="#fff">{favorites.includes("1245431") ? "favorite" : "favorite_border"}</FontIcon>
               </IconButton> : null
             }
             <IconMenu
@@ -53,7 +60,7 @@ export default class Header extends Component {
     this.asteroid.call('favoriteLists.project.add', {
       name: 'Favorite',
       userId,
-      scratchId: '15832807'
+      scratchId: '1245431'
     })
   }
 

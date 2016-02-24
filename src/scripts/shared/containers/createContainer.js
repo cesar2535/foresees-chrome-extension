@@ -6,7 +6,7 @@ import * as Actions from '../actions'
 import * as profileActions from '../actions/profile'
 
 function mapStateToProps(state) {
-  console.log(state)
+  console.log('State:', state);
   return {
     state: state
   }

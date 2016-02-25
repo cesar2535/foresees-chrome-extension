@@ -53,7 +53,6 @@ export default class Header extends Component {
 
     if (checkProjectUrl(url) && persistent.userId) {
       const scratchId = url.match(/\d+/)[0]
-      console.log(scratchId);
       return (
         <IconButton tooltip="Add to Favorite" onClick={this.handleFavoriteClick}>
           <FontIcon className="material-icons" color="#fff">{favorites.includes(scratchId) ? "favorite" : "favorite_border"}</FontIcon>

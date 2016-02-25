@@ -10,7 +10,6 @@ export default function profile(state = initialState, action) {
     case UPDATE_PROFILE:
       return { ...state, ...action.profile }
     case UPDATE_FAVORITE:
-      console.log(state, action)
       return {
         ...state,
         favorites: action.favorites

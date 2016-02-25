@@ -45,9 +45,9 @@ export default class App extends Component {
     const { state: { persistent }, updateProfile, updateFavorite } = this.props
     this.getCurrentTab()
     this.asteroid.ddp.on("added", ({ collection, fields, id, msg }) => {
-      console.groupCollapsed(`Collection ${collection} with a element added`)
-      console.log(`%cDocument's ID:`, 'color: #604B55; font-weight: bold;', id);
-      console.log(`%cDocument's fields:`, 'color: #BB4A51; font-weight: bold;', fields);
+      console.groupCollapsed(`Collection ${collection} with an element %cadded`, 'color: #2b90d9')
+      console.log(`%cDocument's ID:`, 'color: #ff7473; font-weight: bold;', id);
+      console.log(`%cDocument's fields:`, 'color: #47b8e0; font-weight: bold;', fields);
       console.groupEnd()
 
       if (collection === 'users' && id === persistent.userId) {
@@ -59,9 +59,9 @@ export default class App extends Component {
       }
     })
     this.asteroid.ddp.on('changed', function ({ collection, fields, id, msg }) {
-      console.groupCollapsed(`Collection ${collection} with a element changed`)
-      console.log(`%cDocument's ID:`, 'color: #604B55; font-weight: bold;', id);
-      console.log(`%cDocument's fields:`, 'color: #BB4A51; font-weight: bold;', fields);
+      console.groupCollapsed(`Collection ${collection} with an element %cchanged`, 'color: #f1404b')
+      console.log(`%cDocument's ID:`, 'color: #ff7473; font-weight: bold;', id);
+      console.log(`%cDocument's fields:`, 'color: #47b8e0; font-weight: bold;', fields);
       console.groupEnd()
       if (collection === 'favoriteLists') {
         updateFavorite(fields.scratchProjects)

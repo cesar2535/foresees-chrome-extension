@@ -23,18 +23,14 @@ export default class Header extends Component {
   }
 
   render() {
-    const { persistent, profile: { favorites } } = this.props
+    const { persistent } = this.props
     return (
       <AppBar
         title="4Cs"
         onLeftIconButtonTouchTap={this.props.toggleDrawer}
         iconElementRight={
           <div>
-            { persistent.userId ?
-              <IconButton tooltip="Add to Favorite" onClick={this.handleFavoriteClick}>
-                <FontIcon className="material-icons" color="#fff">{favorites.includes("1245431") ? "favorite" : "favorite_border"}</FontIcon>
-              </IconButton> : null
-            }
+            {this.renderFavoriteBtn()}
             <IconMenu
               iconButtonElement={
                 <IconButton><MoreVertIcon color="#fff" /></IconButton>
@@ -52,12 +48,29 @@ export default class Header extends Component {
     )
   }
 
+  renderFavoriteBtn() {
+    const { persistent, currentWeb: { url }, profile: { favorites } } = this.props
+
+    if (checkProjectUrl(url) && persistent.userId) {
+      const scratchId = url.match(/\d+/)[0]
+      console.log(scratchId);
+      return (
+        <IconButton tooltip="Add to Favorite" onClick={this.handleFavoriteClick}>
+          <FontIcon className="material-icons" color="#fff">{favorites.includes(scratchId) ? "favorite" : "favorite_border"}</FontIcon>
+        </IconButton>
+      )
+    }
+
+    return null
+  }
+
   handleFavoriteClick(e) {
-    const { persistent: { userId } } = this.props
-    this.asteroid.call('favoriteLists.project.add', {
+    const { persistent: { userId }, currentWeb: { url } } = this.props
+    const scratchId = url.match(/\d+/)[0]
+    this.asteroid.call('favoriteLists.project.update', {
       name: 'Favorite',
       userId,
-      scratchId: '1231232'
+      scratchId
     })
   }
 

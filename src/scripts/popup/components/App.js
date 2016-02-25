@@ -59,7 +59,11 @@ export default class App extends Component {
       }
     })
     this.asteroid.ddp.on('changed', function ({ collection, fields, id, msg }) {
-      if (collection === 'favoriteLists' && fields.userId === persistent.userId) {
+      console.groupCollapsed(`Collection ${collection} with a element changed`)
+      console.log(`%cDocument's ID:`, 'color: #604B55; font-weight: bold;', id);
+      console.log(`%cDocument's fields:`, 'color: #BB4A51; font-weight: bold;', fields);
+      console.groupEnd()
+      if (collection === 'favoriteLists') {
         updateFavorite(fields.scratchProjects)
       }
     })
@@ -72,6 +76,7 @@ export default class App extends Component {
       <div className={styles.root}>
         <Header
           persistent={persistent}
+          currentWeb={currentWeb}
           profile={profile}
           toggleDrawer={this.toggleDrawer}
           getCurrentTab={this.getCurrentTab}

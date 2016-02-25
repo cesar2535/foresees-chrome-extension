@@ -6,6 +6,7 @@ import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import IconMenu from 'material-ui/lib/menus/icon-menu'
 import styles from './Header.css'
+import { checkProjectUrl } from '../../shared/helpers/regexTest'
 
 export default class Header extends Component {
   constructor(props, context) {
@@ -19,10 +20,6 @@ export default class Header extends Component {
   }
 
   componentDidMount() {
-    console.log(this.asteroid)
-    this.asteroid.ddp.on('changed', function (changed) {
-      console.log('Header:', changed)
-    })
   }
 
   render() {
@@ -60,7 +57,7 @@ export default class Header extends Component {
     this.asteroid.call('favoriteLists.project.add', {
       name: 'Favorite',
       userId,
-      scratchId: '1245431'
+      scratchId: '1231232'
     })
   }
 

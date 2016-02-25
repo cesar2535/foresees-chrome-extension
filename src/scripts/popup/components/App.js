@@ -38,12 +38,13 @@ export default class App extends Component {
       platform: 'chrome',
       endpoint: 'ws://localhost:8080/websocket'
     })
+    this.asteroid.subscribe('favoriteLists.by.user', this.props.state.persistent.userId)
   }
 
   componentDidMount() {
     const { state: { persistent }, updateProfile, updateFavorite } = this.props
     this.getCurrentTab()
-    this.asteroid.ddp.on("added", ({collection, id, fields}) => {
+    this.asteroid.ddp.on("added", ({ collection, fields, id, msg }) => {
       console.groupCollapsed(`Collection ${collection} with a element added`)
       console.log(`%cDocument's ID:`, 'color: #604B55; font-weight: bold;', id);
       console.log(`%cDocument's fields:`, 'color: #BB4A51; font-weight: bold;', fields);
@@ -53,6 +54,11 @@ export default class App extends Component {
         updateProfile(fields.profile)
 
       }
+      if (collection === 'favoriteLists' && fields.userId === persistent.userId) {
+        updateFavorite(fields.scratchProjects)
+      }
+    })
+    this.asteroid.ddp.on('changed', function ({ collection, fields, id, msg }) {
       if (collection === 'favoriteLists' && fields.userId === persistent.userId) {
         updateFavorite(fields.scratchProjects)
       }
@@ -140,7 +146,6 @@ export default class App extends Component {
 
   getCurrentTab(e) {
     getCurrentTab().then( res => {
-      console.log(res);
       this.setState({
         currentWeb: res
       })
